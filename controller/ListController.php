@@ -1,32 +1,28 @@
 <?php
 
-require(ROOT . "model/PatientsModel.php");
-require(ROOT . "model/ClientsModel.php");
+require(ROOT . "model/ListModel.php");
+require(ROOT . "model/TaskModel.php");
 
 function index()
 {
-	render("hospital/PatientsMap/index", array(
-		'patients' => getAllPatients()
+	render("todolist/ListMap/index", array(
+		'lists' => getAllLists()
 	));
 }
 
 function create()
 {
-	render("hospital/PatientsMap/create", array(
-		'species' => getAllSpecies(),
-		'clients' => getAllClients()
-	));
+	render("todolist/ListMap/create");
 }
 
 function createSave()
 {
-	if (!createPatient($_POST)) {
+	if (!createList($_POST)) {
 		header("Location:" . URL . "error/index");
 		exit();
 	}
 
-
-	header("Location:" . URL . "Patients/index");
+	header("Location:" . URL . "List/index");
 }
 
 function delete($id)
@@ -45,7 +41,6 @@ function edit($id)
 	render("hospital/PatientsMap/edit", array(
 		'patients' => getOnePatient($id),
 		'clients' => getAllClients(),
-		'species' => getAllSpecies()
 	));
 }
 

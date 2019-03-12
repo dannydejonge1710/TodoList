@@ -14,28 +14,25 @@ function getOnePatient($id)
 	return $query->fetch();
 }
 
-function getAllPatients() 
+function getAllLists() 
 {
 	$db = openDatabaseConnection();
 
-	$sql = "SELECT * FROM patients LEFT JOIN species ON patients.species_id = species.species_id LEFT JOIN clients ON patients.client_id = clients.client_id ORDER BY patient_name";
+	$sql = "SELECT * FROM lists ORDER BY name";
 	$query = $db->prepare($sql);
 	$query->execute();
 
 	$db = null;
 
-
 	return $query->fetchAll();
 }
 
-function createPatient($data) 
+function createList($data) 
 {
-	$patient_name = ($data['patient_name']);
-	$species_id = ($data['species_id']);
-	$patient_status = ($data['patient_status']);
-	$client_id = ($data['client_id']);
+	$name = ($data['name']);
+	$description = ($data['description']);
 
-	if (strlen($patient_name) == 0 || strlen($species_id) == 0 || strlen($patient_status) == 0 || strlen($client_id) == 0) {
+	if (strlen($name) == 0 || strlen($description) == 0) {
 		return false;
 	}
 	

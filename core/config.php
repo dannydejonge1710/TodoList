@@ -2,9 +2,9 @@
 
 define('DB_TYPE', 'mysql');
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'hospital');
-define('DB_USER', 'root3');
-define('DB_PASS', 'danny');
+define('DB_NAME', 'todolist');
+define('DB_USER', 'danny');
+define('DB_PASS', 'testing');
 define('DB_CHARSET', 'utf8');
 
 define('URL_PUBLIC_FOLDER', 'public');
@@ -13,4 +13,4 @@ define('URL_DOMAIN', $_SERVER['HTTP_HOST']);
 define('URL_SUB_FOLDER', str_replace(URL_PUBLIC_FOLDER, '', dirname($_SERVER['SCRIPT_NAME'])));
 define('URL', URL_PROTOCOL . URL_DOMAIN . URL_SUB_FOLDER);
 
-define('DEFAULT_CONTROLLER', 'Patients');
+define('DEFAULT_CONTROLLER', 'List');
