@@ -2,14 +2,14 @@
 
 	<h1>Create</h1>
 	
-	<form action="<?= URL ?>Clients/createSave" method="post">
+	<form action="<?= URL ?>Task/createSave/<?= $id ?>" method="post">
 	
-		<input required type="text" name="firstname" placeholder="Firstname">
-		<input required type="text" name="lastname" placeholder="Lastname">
-		<input required type="number" name="phonenumber" placeholder="Phonenumber">
-		<input required type="text" name="email" placeholder="Email">
+		<input required type="text" name="name" placeholder="Name">
+		<input required type="text" name="description" placeholder="Description">
 
-		<input type="submit" value="Verzenden">
+		<input type="hidden" name="list_id" value="<?= $id ?>">
+
+		<input type="submit" value="Submit">
 	
 	</form>
 

@@ -1,38 +1,40 @@
 <?php
 
-require(ROOT . "model/ClientsModel.php");
+require(ROOT . "model/TaskModel.php");
 
-function index()
+function index($id)
 {
-	render("hospital/ClientsMap/index", array(
-		'clients' => getAllClients()
+	render("todolist/TaskMap/index", array(
+		'tasks' => getFilteredTasks($id),
+		'id' => $id,
 	));
 }
 
-function create()
+function create($id)
 {
-	render("hospital/ClientsMap/create");
+	render("todolist/TaskMap/create", [
+		'id' => $id,
+	]);
 }
 
-function createSave()
+function createSave($id)
 {
-	if (!createClient($_POST)) {
+	if (!createTask($_POST)) {
 		header("Location:" . URL . "error/index");
 		exit();
 	}
 
-
-	header("Location:" . URL . "Clients/index");
+	header("Location:" . URL . "Task/index/" . $id);
 }
 
-function delete($id)
+function delete($id, $listId)
 {
-	if (!deleteClient($id)) {
+	if (!deleteTask($id)) {
 		header("Location:" . URL . "error/index");
 		exit();
 	}
 
-	header("Location:" . URL . "Clients/index");
+	header("Location:" . URL . "Task/index/" . $listId);
 }
 
 

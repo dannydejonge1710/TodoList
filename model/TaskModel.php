@@ -14,48 +14,47 @@ function getOneClient($id)
 	return $query->fetch();
 }
 
-function getAllClients() 
+function getFilteredTasks($id) 
 {
 	$db = openDatabaseConnection();
 
-	$sql = "SELECT * FROM clients ORDER BY client_firstname";
+	$sql = "SELECT * FROM tasks WHERE list_id = :id ORDER BY id DESC";
+
 	$query = $db->prepare($sql);
-	$query->execute();
+	$query->execute([
+		":id" => $id
+	]);
 
 	$db = null;
-
 
 	return $query->fetchAll();
 }
 
-function createClient($data) 
+function createTask($data) 
 {
-	$firstname = ($data['firstname']);
-	$lastname = ($data['lastname']);
-	$phonenumber = ($data['phonenumber']);
-	$email = ($data['email']);
+	$name = ($data['name']);
+	$description = ($data['description']);
+	$list_id = ($data['list_id']);
 
-
-	if (strlen($firstname) == 0 || strlen($lastname) == 0 || strlen($phonenumber) == 0 || strlen($email) == 0) {
+	if (strlen($name) == 0 || strlen($description) == 0 || strlen($list_id) == 0) {
 		return false;
 	}
 	
 	$db = openDatabaseConnection();
 
-	$sql = "INSERT INTO clients(client_firstname, client_lastname, client_phonenumber, client_email) VALUES (:firstname, :lastname, :phonenumber, :email)";
+	$sql = "INSERT INTO tasks(name, description, list_id) VALUES (:name, :description, :list_id)";
 	$query = $db->prepare($sql);
 	$query->execute(array(
-		':firstname' => $firstname,
-		':lastname' => $lastname,
-		':phonenumber' => $phonenumber,
-		':email' => $email));
+		':name' => $name,
+		':description' => $description,
+		':list_id' => $list_id));
 
 	$db = null;
 	
 	return true;
 }
 
-function deleteClient($id) 
+function deleteTask($id) 
 {
 	if (!$id) {
 		return false;
@@ -63,7 +62,7 @@ function deleteClient($id)
 	
 	$db = openDatabaseConnection();
 
-	$sql = "DELETE FROM clients WHERE client_id=:id ";
+	$sql = "DELETE FROM tasks WHERE id=:id ";
 	$query = $db->prepare($sql);
 	$query->execute(array(
 		':id' => $id));

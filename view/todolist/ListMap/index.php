@@ -15,11 +15,11 @@
 		<?php foreach ($lists as $list) { ?>
 
 		<tr>
-			<td><?= $list['name']; ?></td>
+			<td><a href="<?= URL ?>Task/index/<?= $list['id'] ?>"><?= $list['name']; ?></a></td>
 			<td><?= $list['description']; ?></td>
 
-			<td><a href="<?= URL ?>List/edit/<?= $list['id'] ?>">Edit</a></td>
-			<td><a href="<?= URL ?>List/delete/<?= $list['id'] ?>">Delete</a></td>
+			<td><a href="<?= URL ?>List/edit/<?= $list['id'] ?>"><i class="far fa-edit"></i></a></td>
+			<td><a href="<?= URL ?>List/delete/<?= $list['id'] ?>"><i class="far fa-trash-alt"></i></a></td>
 		</tr>
 		
 		<?php } ?>	
