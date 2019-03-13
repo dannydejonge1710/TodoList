@@ -27,31 +27,30 @@ function createSave()
 
 function delete($id)
 {
-	if (!deletePatient($id)) {
+	if (!deleteList($id)) {
 		header("Location:" . URL . "error/index");
 		exit();
 	}
 
-	header("Location:" . URL . "Patients/index");
+	header("Location:" . URL . "List/index");
 }
 
 
 function edit($id)
 {
-	render("hospital/PatientsMap/edit", array(
-		'patients' => getOnePatient($id),
-		'clients' => getAllClients(),
+	render("todolist/ListMap/edit", array(
+		'lists' => getOneList($id),
 	));
 }
 
 
 function editSave()
 {
-	if (!editPatient($_POST)) {
+	if (!editList($_POST)) {
 		header("Location:" . URL . "error/index");
 		exit();
 	}
 
-	header("Location:" . URL . "Patients/index");
+	header("Location:" . URL . "List/index");
 } 
 

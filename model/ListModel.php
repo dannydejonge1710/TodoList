@@ -1,10 +1,10 @@
 <?php
 
-function getOnePatient($id) 
+function getOneList($id) 
 {
 	$db = openDatabaseConnection();
 
-	$sql = "SELECT * FROM patients WHERE patient_id = :id";
+	$sql = "SELECT * FROM lists WHERE id = :id";
 	$query = $db->prepare($sql);
 	$query->execute(array(
 		":id" => $id));
@@ -18,7 +18,7 @@ function getAllLists()
 {
 	$db = openDatabaseConnection();
 
-	$sql = "SELECT * FROM lists ORDER BY name";
+	$sql = "SELECT * FROM lists ORDER BY id DESC";
 	$query = $db->prepare($sql);
 	$query->execute();
 
@@ -38,21 +38,19 @@ function createList($data)
 	
 	$db = openDatabaseConnection();
 
-	$sql = "INSERT INTO patients(patient_name, species_id, patient_status, client_id) VALUES (:patient_name, :species_id, :patient_status, :client_id)";
+	$sql = "INSERT INTO lists(name, description) VALUES (:name, :description)";
 	
 	$query = $db->prepare($sql);
 	$query->execute(array(
-		':patient_name' => $patient_name,
-		':species_id' => $species_id,
-		':patient_status' => $patient_status,
-		':client_id' => $client_id));
+		':name' => $name,
+		':description' => $description));
 
 	$db = null;
 	
 	return true;
 }
 
-function deletePatient($id) 
+function deleteList($id) 
 {
 	if (!$id) {
 		return false;
@@ -60,7 +58,7 @@ function deletePatient($id)
 	
 	$db = openDatabaseConnection();
 
-	$sql = "DELETE FROM patients WHERE patient_id=:id ";
+	$sql = "DELETE FROM lists WHERE id=:id ";
 	$query = $db->prepare($sql);
 	$query->execute(array(
 		':id' => $id));
@@ -72,28 +70,25 @@ function deletePatient($id)
 
 
 
-function editPatient($data) 
+function editList($data) 
 {
-	$patient_name = ($data['patient_name']);
-	$species_id = ($data['species_id']);
-	$patient_status = ($data['patient_status']);
-	$client_id = ($data['client_id']);
+	$name = ($data['name']);
+	$description = ($data['description']);
 	$id = ($data['id']);
 	
-	if (strlen($patient_name) == 0 || strlen($species_id) == 0 || strlen($patient_status) == 0 || strlen($client_id) == 0 || strlen($id) == 0) {
+	if (strlen($name) == 0 || strlen($description) == 0 || strlen($id) == 0) {
 		return false;
 	}
 	
 	$db = openDatabaseConnection();
 
-	$sql = "UPDATE patients SET patient_name = :patient_name, species_id = :species_id, patient_status = :patient_status, client_id = :client_id  WHERE patient_id = :id";
+	$sql = "UPDATE lists SET name = :name, description = :description  WHERE id = :id";
+
 	$query = $db->prepare($sql);
 	$query->execute(array(
 
-		':patient_name' => $patient_name,
-		':species_id' => $species_id,
-		':patient_status' => $patient_status,
-		':client_id' => $client_id,
+		':name' => $name,
+		':description' => $description,
 		':id' => $id));
 
 	$db = null;
