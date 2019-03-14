@@ -6,6 +6,7 @@
 		<tr>
 			<th>Name</th>
 			<th>Description</th>
+			<th>Status</th>
 
 			<th colspan="2">Action</th>
 		</tr>
@@ -15,6 +16,12 @@
 		<tr>
 			<td><?= $task['name']; ?></td>
 			<td><?= $task['description']; ?></td>
+
+			<?php if ($task['status'] == null) { ?>
+				<td><a href="<?= URL ?>Task/status/<?= $task['id'] ?>/<?= $id ?>/0" style="color: darkred">Not done</a></td>
+			<?php } else { ?>
+				<td><a href="<?= URL ?>Task/status/<?= $task['id'] ?>/<?= $id ?>/1" style="color: green">Done</td>
+			<?php } ?>
 
 			<td><a href="<?= URL ?>Task/edit/<?= $task['id'] ?>/<?= $id ?>"><i class="far fa-edit"></i></a></td>
 			<td><a href="<?= URL ?>Task/delete/<?= $task['id'] ?>/<?= $id ?>"><i class="far fa-trash-alt"></i></a></td>

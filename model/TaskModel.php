@@ -99,5 +99,38 @@ function editTask($data)
 	return true;
 }
 
+function changeStatus($id, $check)
+{
+	if ($check == 0) {
+		$db = openDatabaseConnection();
+		$sql = "UPDATE tasks SET status = :status WHERE id = :id";
+
+		$query = $db->prepare($sql);
+		$query->execute(array(
+			':status' => 1,
+			':id' => $id));
+
+		$db = null;
+		
+		return true;
+	} 
+
+	if ($check == 1) {
+		$db = openDatabaseConnection();
+		$sql = "UPDATE tasks SET status = :status WHERE id = :id";
+
+		$query = $db->prepare($sql);
+		$query->execute(array(
+			':status' => null,
+			':id' => $id));
+
+		$db = null;
+		
+		return true;
+	}
+
+	return false;
+}
+
 
 

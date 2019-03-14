@@ -57,3 +57,13 @@ function editSave($id)
 	header("Location:" . URL . "Task/index/" . $id);
 } 
 
+
+function status($id, $listId, $check)
+{
+	if (!changeStatus($id, $check)) {
+		header("Location:" . URL . "error/index");
+		exit();
+	}
+
+	header("Location:" . URL . "Task/index/" . $listId);
+}
