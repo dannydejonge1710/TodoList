@@ -16,7 +16,7 @@
 			<td><?= $task['name']; ?></td>
 			<td><?= $task['description']; ?></td>
 
-			<td><a href="<?= URL ?>Clients/edit/<?= $client['client_id'] ?>"><i class="far fa-edit"></i></a></td>
+			<td><a href="<?= URL ?>Task/edit/<?= $task['id'] ?>/<?= $id ?>"><i class="far fa-edit"></i></a></td>
 			<td><a href="<?= URL ?>Task/delete/<?= $task['id'] ?>/<?= $id ?>"><i class="far fa-trash-alt"></i></a></td>
 		</tr>
 		

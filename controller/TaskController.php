@@ -38,21 +38,22 @@ function delete($id, $listId)
 }
 
 
-function edit($id)
+function edit($id, $list_id)
 {
-	render("hospital/ClientsMap/edit", array(
-		'clients' => getOneClient($id)
+	render("todolist/TaskMap/edit", array(
+		'tasks' => getOneTask($id),
+		'list_id' => $list_id,
 	));
 }
 
 
-function editSave()
+function editSave($id)
 {
-	if (!editClient($_POST)) {
+	if (!editTask($_POST)) {
 		header("Location:" . URL . "error/index");
 		exit();
 	}
 
-	header("Location:" . URL . "Clients/index");
+	header("Location:" . URL . "Task/index/" . $id);
 } 
 

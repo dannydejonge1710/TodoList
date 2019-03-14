@@ -1,10 +1,10 @@
 <?php
 
-function getOneClient($id) 
+function getOneTask($id) 
 {
 	$db = openDatabaseConnection();
 
-	$sql = "SELECT * FROM clients WHERE client_id = :id";
+	$sql = "SELECT * FROM tasks WHERE id = :id";
 	$query = $db->prepare($sql);
 	$query->execute(array(
 		":id" => $id));
@@ -72,29 +72,26 @@ function deleteTask($id)
 	return true;
 }
 
-
-
-function editClient($data) 
+function editTask($data) 
 {
-	$firstname = ($data['firstname']);
-	$lastname = ($data['lastname']);
-	$phonenumber= ($data['phonenumber']);
-	$email = ($data['email']);
+	$name = ($data['name']);
+	$description = ($data['description']);
+	$list_id = ($data['list_id']);
 	$id = ($data['id']);
 	
-	if (strlen($firstname) == 0 || strlen($lastname) == 0 || strlen($phonenumber) == 0 || strlen($email) == 0 ||  strlen($id) == 0) {
+	if (strlen($name) == 0 || strlen($description) == 0 || strlen($list_id) == 0 ||  strlen($id) == 0) {
 		return false;
 	}
 	
 	$db = openDatabaseConnection();
 
-	$sql = "UPDATE clients SET client_firstname = :firstname, client_lastname = :lastname, client_phonenumber = :phonenumber, client_email = :email WHERE client_id = :id";
+	$sql = "UPDATE tasks SET name = :name, description = :description, list_id = :list_id WHERE id = :id";
+
 	$query = $db->prepare($sql);
 	$query->execute(array(
-		':firstname' => $firstname,
-		':lastname' => $lastname,
-		':phonenumber' => $phonenumber,
-		':email' => $email,
+		':name' => $name,
+		':description' => $description,
+		':list_id' => $list_id,
 		':id' => $id));
 
 	$db = null;
