@@ -6,7 +6,10 @@
 		<tr>
 			<th>Name</th>
 			<th>Description</th>
-			<th>Status</th>
+			<th>Status
+				<a href="<?= URL ?>Task/index/<?= $id ?>/0"><i class="fas fa-arrow-up"></i></a>
+				<a href="<?= URL ?>Task/index/<?= $id ?>/1"><i class="fas fa-arrow-down"></i></a>
+			</th>
 
 			<th colspan="2">Action</th>
 		</tr>

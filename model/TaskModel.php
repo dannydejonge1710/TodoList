@@ -14,11 +14,19 @@ function getOneTask($id)
 	return $query->fetch();
 }
 
-function getFilteredTasks($id) 
+function getFilteredTasks($id, $sort) 
 {
 	$db = openDatabaseConnection();
 
 	$sql = "SELECT * FROM tasks WHERE list_id = :id ORDER BY id DESC";
+
+	if ($sort == 0) {
+		$sql = "SELECT * FROM tasks WHERE list_id = :id ORDER BY status DESC";
+	}
+
+	if ($sort == 1) {
+		$sql = "SELECT * FROM tasks WHERE list_id = :id ORDER BY status ASC";
+	}
 
 	$query = $db->prepare($sql);
 	$query->execute([

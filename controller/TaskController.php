@@ -2,10 +2,10 @@
 
 require(ROOT . "model/TaskModel.php");
 
-function index($id)
+function index($id, $sort = null)
 {
 	render("todolist/TaskMap/index", array(
-		'tasks' => getFilteredTasks($id),
+		'tasks' => getFilteredTasks($id, $sort),
 		'id' => $id,
 	));
 }
