@@ -14,11 +14,20 @@ function getOneTask($id)
 	return $query->fetch();
 }
 
-function getFilteredTasks($id, $sort) 
+function getFilteredTasks($id, $sort, $data) 
 {
+	$filter = ($data['filter']);
+
+	var_dump($filter);
+
 	$db = openDatabaseConnection();
 
-	$sql = "SELECT * FROM tasks WHERE list_id = :id ORDER BY id DESC";
+	$sql = null;
+	if ($data == null) {
+		$sql = "SELECT * FROM tasks WHERE list_id = :id ORDER BY id DESC";
+	} else {
+		$sql = "SELECT * FROM tasks WHERE list_id = :id AND duration = :duration ORDER BY id DESC";
+	}
 
 	if ($sort == 0) {
 		$sql = "SELECT * FROM tasks WHERE list_id = :id ORDER BY status DESC";
@@ -29,9 +38,16 @@ function getFilteredTasks($id, $sort)
 	}
 
 	$query = $db->prepare($sql);
-	$query->execute([
-		":id" => $id
-	]);
+	if ($data == null) {
+		$query->execute([
+		":id" => $id,
+		]);
+	} else {
+		$query->execute([
+		":id" => $id,
+		":duration" => $filter,
+		]);
+	}
 
 	$db = null;
 
@@ -43,17 +59,19 @@ function createTask($data)
 	$name = ($data['name']);
 	$description = ($data['description']);
 	$list_id = ($data['list_id']);
+	$duration = ($data['duration']);
 
-	if (strlen($name) == 0 || strlen($description) == 0 || strlen($list_id) == 0) {
+	if (strlen($name) == 0 || strlen($description) == 0 || strlen($list_id) == 0 || strlen($duration) == 0) {
 		return false;
 	}
 	
 	$db = openDatabaseConnection();
 
-	$sql = "INSERT INTO tasks(name, description, list_id) VALUES (:name, :description, :list_id)";
+	$sql = "INSERT INTO tasks(name, description, list_id, duration) VALUES (:name, :description, :list_id, :duration)";
 	$query = $db->prepare($sql);
 	$query->execute(array(
 		':name' => $name,
+		':duration' => $duration,
 		':description' => $description,
 		':list_id' => $list_id));
 
@@ -85,21 +103,23 @@ function editTask($data)
 	$name = ($data['name']);
 	$description = ($data['description']);
 	$list_id = ($data['list_id']);
+	$duration = ($data['duration']);
 	$id = ($data['id']);
 	
-	if (strlen($name) == 0 || strlen($description) == 0 || strlen($list_id) == 0 ||  strlen($id) == 0) {
+	if (strlen($name) == 0 || strlen($description) == 0 || strlen($list_id) == 0 || strlen($id) == 0 || strlen($duration) == 0) {
 		return false;
 	}
 	
 	$db = openDatabaseConnection();
 
-	$sql = "UPDATE tasks SET name = :name, description = :description, list_id = :list_id WHERE id = :id";
+	$sql = "UPDATE tasks SET name = :name, description = :description, list_id = :list_id, duration = :duration WHERE id = :id";
 
 	$query = $db->prepare($sql);
 	$query->execute(array(
 		':name' => $name,
 		':description' => $description,
 		':list_id' => $list_id,
+		':duration' => $duration,
 		':id' => $id));
 
 	$db = null;

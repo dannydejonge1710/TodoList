@@ -59,6 +59,17 @@ function deleteList($id)
 	$db = openDatabaseConnection();
 
 	$sql = "DELETE FROM lists WHERE id=:id ";
+
+	$query = $db->prepare($sql);
+	$query->execute(array(
+		':id' => $id));
+	
+	$db = null;
+
+	$db = openDatabaseConnection();
+
+	$sql = "DELETE FROM tasks WHERE list_id=:id ";
+
 	$query = $db->prepare($sql);
 	$query->execute(array(
 		':id' => $id));

@@ -6,6 +6,7 @@
 	
 		<input required type="text" name="name" placeholder="Name">
 		<input required type="text" name="description" placeholder="Description">
+		<input required type="number" name="duration" placeholder="Duration in minutes">
 
 		<input type="hidden" name="list_id" value="<?= $id ?>">
 

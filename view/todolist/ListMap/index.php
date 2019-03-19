@@ -2,7 +2,7 @@
 
 	<h1>Lists</h1>
 
-		<table border="1">
+	<table border="1">
 
 		<tr>
 			<th>Name</th>
@@ -10,17 +10,17 @@
 
 			<th colspan="2">Action</th>
 		</tr>
-	
+
 		
 		<?php foreach ($lists as $list) { ?>
 
-		<tr>
-			<td><a href="<?= URL ?>Task/index/<?= $list['id'] ?>"><?= $list['name']; ?></a></td>
-			<td><?= $list['description']; ?></td>
+			<tr>
+				<td><a href="<?= URL ?>Task/index/<?= $list['id'] ?>"><?= $list['name']; ?></a></td>
+				<td><?= $list['description']; ?></td>
 
-			<td><a href="<?= URL ?>List/edit/<?= $list['id'] ?>"><i class="far fa-edit"></i></a></td>
-			<td><a href="<?= URL ?>List/delete/<?= $list['id'] ?>"><i class="far fa-trash-alt"></i></a></td>
-		</tr>
+				<td><a href="<?= URL ?>List/edit/<?= $list['id'] ?>"><i class="far fa-edit"></i></a></td>
+				<td><a href="<?= URL ?>List/delete/<?= $list['id'] ?>"><i class="far fa-trash-alt"></i></a></td>
+			</tr>
 		
 		<?php } ?>	
 
