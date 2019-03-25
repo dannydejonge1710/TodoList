@@ -18,7 +18,7 @@ function getFilteredTasks($id, $sort, $data)
 {
 	$filter = ($data['filter']);
 
-	var_dump($filter);
+	var_dump((INT)$id);
 
 	$db = openDatabaseConnection();
 
@@ -29,13 +29,13 @@ function getFilteredTasks($id, $sort, $data)
 		$sql = "SELECT * FROM tasks WHERE list_id = :id AND duration = :duration ORDER BY id DESC";
 	}
 
-	if ($sort == 0) {
-		$sql = "SELECT * FROM tasks WHERE list_id = :id ORDER BY status DESC";
-	}
+	// if ($sort == 0) {
+	// 	$sql = "SELECT * FROM tasks WHERE list_id = :id ORDER BY status DESC";
+	// }
 
-	if ($sort == 1) {
-		$sql = "SELECT * FROM tasks WHERE list_id = :id ORDER BY status ASC";
-	}
+	// if ($sort == 1) {
+	// 	$sql = "SELECT * FROM tasks WHERE list_id = :id ORDER BY status ASC";
+	// }
 
 	$query = $db->prepare($sql);
 	if ($data == null) {
@@ -44,8 +44,8 @@ function getFilteredTasks($id, $sort, $data)
 		]);
 	} else {
 		$query->execute([
-		":id" => $id,
-		":duration" => $filter,
+		":id" => (INT)$id,
+		":duration" => (INT)$filter,
 		]);
 	}
 
